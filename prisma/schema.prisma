@@ -1,0 +1,35 @@
+// Schéma DIGIGED — une seule entité : l'agent de l'entreprise.
+// SQLite : pas d'enum natif, les champs `sexe`, `statut` et `cardModel` sont des
+// chaînes contraintes côté application (Zod dans app/agents/actions.ts).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Agent {
+  id            String    @id @default(uuid()) // encodé dans l'URL du QR code
+  matricule     String    @unique // DGD-2026-0001
+  nom           String
+  prenom        String
+  dateNaissance DateTime?
+  sexe          String? // "M" | "F"
+  fonction      String?
+  departement   String?
+  telephone     String?
+  email         String?
+  dateEntree    DateTime?
+  photoUrl      String? // URL UploadThing (file.ufsUrl)
+  statut        String    @default("actif") // "actif" | "inactif"
+  cardModel     String    @default("duo") // "duo" | "portrait"
+  cardColor     String    @default("#0A2472")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([nom])
+  @@index([departement])
+  @@index([statut])
+}

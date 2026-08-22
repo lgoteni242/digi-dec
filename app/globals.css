@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
+/* Charte DIGIGED : bleu marine dominant, vert en accent (mosaïque du logo).
+   Les mêmes valeurs existent en TS dans lib/brand.ts pour les badges, qui sont
+   rendus en styles inline et ne peuvent donc pas lire ces variables CSS. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f7fb;
+  --foreground: #12122b;
+  --navy: #0a2472;
+  --navy-deep: #071a52;
+  --navy-soft: #eef1fa;
+  --green: #3dae2b;
+  --green-soft: #eaf7e7;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-soft: var(--navy-soft);
+  --color-green: var(--green);
+  --color-green-soft: var(--green-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Masque l'interface autour d'un badge quand on lance l'impression depuis la
+   fiche agent (l'impression en masse passe, elle, par une fenêtre dédiée). */
+@media print {
+  .no-print {
+    display: none !important;
+  }
 }
