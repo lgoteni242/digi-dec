@@ -1,22 +1,27 @@
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "public";
+
 -- CreateTable
 CREATE TABLE "Agent" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "matricule" TEXT NOT NULL,
     "nom" TEXT NOT NULL,
     "prenom" TEXT NOT NULL,
-    "dateNaissance" DATETIME,
+    "dateNaissance" TIMESTAMP(3),
     "sexe" TEXT,
     "fonction" TEXT,
     "departement" TEXT,
     "telephone" TEXT,
     "email" TEXT,
-    "dateEntree" DATETIME,
+    "dateEntree" TIMESTAMP(3),
     "photoUrl" TEXT,
     "statut" TEXT NOT NULL DEFAULT 'actif',
     "cardModel" TEXT NOT NULL DEFAULT 'duo',
     "cardColor" TEXT NOT NULL DEFAULT '#0A2472',
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Agent_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

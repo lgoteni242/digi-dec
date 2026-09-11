@@ -9,7 +9,7 @@ codes pour le contrôle d'accès et la vérification d'identité.
 | | |
 |---|---|
 | Framework | Next.js 16 (App Router, Server Actions, Turbopack) |
-| Base de données | SQLite via Prisma 7 (`@prisma/adapter-better-sqlite3`) |
+| Base de données | PostgreSQL via Prisma 7 (`@prisma/adapter-pg` + `pg`) |
 | Style | Tailwind CSS v4 |
 | Photos | UploadThing |
 | QR codes | `qrcode` (SVG synchrone sur les badges, PNG pour l'export) |
@@ -24,8 +24,8 @@ npm install
 cp .env.example .env
 #    puis renseigner UPLOADTHING_TOKEN (https://uploadthing.com/dashboard)
 
-# 2. Base de données (crée dev.db à la racine)
-npx prisma migrate dev
+# 2. Base de données (PostgreSQL — créer la base avant)
+npx prisma migrate deploy
 npm run db:seed        # 12 agents de démonstration
 
 # 3. Lancer
@@ -38,7 +38,7 @@ L'application est disponible sur http://localhost:3000.
 
 | Variable | Rôle |
 |---|---|
-| `DATABASE_URL` | Chemin de la base SQLite — `file:./dev.db` |
+| `DATABASE_URL` | Chaîne PostgreSQL — `postgresql://user:pass@localhost:5432/digi_db` |
 | `UPLOADTHING_TOKEN` | Jeton UploadThing pour l'upload des photos |
 | `NEXT_PUBLIC_APP_URL` | **URL publique de l'app** — encodée dans les QR codes des badges |
 
@@ -137,4 +137,5 @@ lib/
 prisma/                     schema.prisma, migrations, seed.ts
 ```
 
-La base SQLite est le fichier **`dev.db`** à la racine du projet (ignoré par git).
+En production, `DATABASE_URL` pointe vers PostgreSQL et `npx prisma migrate deploy`
+applique la migration `prisma/migrations/*_init_pg`.

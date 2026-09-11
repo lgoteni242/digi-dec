@@ -1,5 +1,5 @@
 // Schéma DIGIGED — une seule entité : l'agent de l'entreprise.
-// SQLite : pas d'enum natif, les champs `sexe`, `statut` et `cardModel` sont des
+// PostgreSQL : les champs `sexe`, `statut` et `cardModel` restent des
 // chaînes contraintes côté application (Zod dans app/agents/actions.ts).
 
 generator client {
@@ -7,8 +7,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" // Changez "sqlite" par "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
 }
 
 model Agent {
